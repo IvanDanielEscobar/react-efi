@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { Button } from 'primereact/button'
@@ -5,7 +6,7 @@ import { InputText } from 'primereact/inputtext'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import "../styles/RegisterForm.css"
-
+import { AuthContext } from '../context/AuthContext'
 
 const validationSchema = Yup.object({
     name: Yup.string().required("El nombre es obligatorio"),
@@ -16,27 +17,16 @@ const validationSchema = Yup.object({
 
 export default function RegisterForm() {
 
+    
+    const { registerUser } = useContext(AuthContext)
+
     const navigate = useNavigate()
 
-    const handleSubmit = async (values, { resetForm }) => {
-        try {
-            const response = await fetch('http://localhost:5000/register', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(values)
-            })
+    const handleSubmit = async (values, { setSubmitting }) => {
+        await register(values.name, values.email, values.password, 'usuario');
+        setSubmitting(false);
+    };
 
-            if (response.ok) {
-                toast.success("Usuario registrado con exito")
-                resetForm()
-                setTimeout(() => navigate('/'), 2000)
-            } else {
-                toast.error("Hubo un erro al registrar el usuario")
-            }
-        } catch (error) {
-            toast.error("hubo un error con el servidor", error)
-        }
-    }
 
     return (
         <div className='register-container'>

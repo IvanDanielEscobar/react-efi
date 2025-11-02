@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { Button } from 'primereact/button'
@@ -5,6 +6,7 @@ import { InputText } from 'primereact/inputtext'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import "../styles/RegisterForm.css"
+import { AuthContext } from '../context/AuthContext'
 
 
 const validationSchema = Yup.object({
@@ -16,32 +18,15 @@ const validationSchema = Yup.object({
 export default function Login() {
 
     const navigate = useNavigate()
-
-    const handleSubmit = async (values, { resetForm }) => {
-        try {
-            const response = await fetch('http://localhost:5000/login', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email: values.email, password: values.password })
-                
-            })
-            console.log(JSON.stringify({ email: values.email, password: values.password }));
-
-            if (response.ok) {
-                const data = await response.json()
-                localStorage.setItem("token", data.access_token)
-                toast.success("Login exitoso")
-                resetForm()
-                setTimeout(() => navigate('/'), 2000)
-            } else {
-                const errorData = await response.json()
-                toast.error(errorData || "Hubo un error en el email o la contraseña")
-            }
-        } catch (error) {
-            toast.error("hubo un error con el servidor", error)
+    const { user } = useContext(AuthContext)
+    
+    const handleSubmit = async (values, { setSubmitting }) => {
+        const success = await login(values.email, values.password);
+        setSubmitting(false);
+        if (success) {
+          navigate('/');
         }
-    }
-
+  };
     return (
         <div className='register-container'>
             <h2>Iniciar Sersion</h2>
