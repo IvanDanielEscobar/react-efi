@@ -1,31 +1,29 @@
-import React, { children, createContext, useEffect, useState } from 'react';
+import React, { children, createContext, useEffect, useState, useContext } from 'react';
 
-import  jwtDecode  from 'jwt-decode'
+import  { jwtDecode }  from 'jwt-decode'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
+
 export const AuthContext = createContext() 
+
+export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }) => {
     const [ user, setUser ] = useState(null)
     const [ token, setToken] = useState(null)
     const navigate = useNavigate();
 
-
+    // token en localstorage
     useEffect(() => {
         const storedToken = localStorage.getItem("token")
-
         if (storedToken) {
             try {
                 const decoded = jwtDecode(storedToken)
+                const userData = decoded.user || decoded
+                    setUser(userData)
+                    setToken(storedToken)
 
-                if(decoded.expires_delta * 1000 > Date.now()) {
-                    setUser(decoded)
-                    setToken(decoded)
-                }else{
-                    localStorage.removeItem("token")
-                }
-                    
             } catch (error) {
                 console.error("token invalido", error)
                 localStorage.removeItem("token")
@@ -33,15 +31,15 @@ export const AuthProvider = ({ children }) => {
         }
     }, [])
 
-
-    const register = async (user, email, password) => {
+    // registrar un usuario
+    const register = async (name, email, password, role = "user") => {
             try {
                 const response = await fetch('http://localhost:5000/register', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(values)
+                    body: JSON.stringify({ name, email, password, role })
                 })
-    
+
                 if (response.ok) {
                     toast.success("Usuario registrado con exito")
                     resetForm()
@@ -54,29 +52,32 @@ export const AuthProvider = ({ children }) => {
             }
         }
 
+    // iniciar sesion
     const login = async (email, password)  => {
         try {
             const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email: values.email, password: values.password })
+                body: JSON.stringify({email, password })
                 
             })
-            if(!response.ok) toast.error("Credenciales incorrectas")
+            const data = await response.json()
+            if(!response.ok || !data.access_token) {
+                toast.error("Credenciales incorrectas")
+                return false
+            }
+            
+            const jwtToken = data.access_token
+            localStorage.setItem("token", jwtToken)
 
-                const data = await response.json()
-                const jwtToken = data.token
+            const decoded = jwtDecode(jwtToken)
+            const userData = decoded.user || decoded
+            setUser(userData)
+            setToken(jwtToken)
 
-                if(!jwtToken) return toast.error("no se encontro el token")
-                
-                localStorage.setItem('token', jwtToken)
-                const decoded = jwtDecode(jwtToken)
-                setUser(decoded)
-                setToken(jwtToken)
-
-                toast.success('inicio de sesion exitoso')
-                setTimeout(() => navigate('/'), 2000)
-
+            toast.success('inicio de sesion exitoso')
+            setTimeout(() => navigate('/posts'), 1000)
+            return true
 
             } catch (error) {
             toast.error("hubo un error al iniciar sesion ", error)
@@ -94,7 +95,7 @@ export const AuthProvider = ({ children }) => {
 
     
     return(
-        <AuthContext.Provider value={{ user, token, login}}>
+        <AuthContext.Provider value={{ user, token, login, register, logout}}>
             {children}
         </AuthContext.Provider>
     )

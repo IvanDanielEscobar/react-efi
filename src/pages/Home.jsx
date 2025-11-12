@@ -9,12 +9,16 @@ export default function Home() {
         <div className="home-container">
             <h1>Bienvenido</h1>
             <div className="home-buttons">
-                <Button label="Registrarse" onClick={() => navigate("/registrarse")} />
                 <Button
                     label="Iniciar sesión"
                     className="p-button-secondary"
                     onClick={() => navigate("/loguearse")}
                 />
+                <Button 
+                label="Registrarse"
+                onClick={() => navigate("/registrarse")} 
+                />
+                
             </div>
         </div>
     );

@@ -3,10 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import "../styles/RegisterForm.css"
 import { AuthContext } from '../context/AuthContext'
+import "../styles/RegisterForm.css"
 
 const validationSchema = Yup.object({
     name: Yup.string().required("El nombre es obligatorio"),
@@ -16,14 +14,11 @@ const validationSchema = Yup.object({
 
 
 export default function RegisterForm() {
+    const { register } = useContext(AuthContext)
 
-    
-    const { registerUser } = useContext(AuthContext)
-
-    const navigate = useNavigate()
 
     const handleSubmit = async (values, { setSubmitting }) => {
-        await register(values.name, values.email, values.password, 'usuario');
+        await register(values.name, values.email, values.password, 'user');
         setSubmitting(false);
     };
 
@@ -32,7 +27,7 @@ export default function RegisterForm() {
         <div className='register-container'>
             <h2>Crear cuenta</h2>
             <Formik
-                initialValues={{ name: '', email: '', password: '', role: 'usuario' }}
+                initialValues={{ name: '', email: '', password: ''}}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
@@ -59,5 +54,4 @@ export default function RegisterForm() {
             </Formik>
         </div>
     )
-
 }

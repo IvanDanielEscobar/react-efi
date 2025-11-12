@@ -3,10 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
-import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import "../styles/RegisterForm.css"
 import { AuthContext } from '../context/AuthContext'
+import "../styles/RegisterForm.css"
 
 
 const validationSchema = Yup.object({
@@ -16,9 +14,7 @@ const validationSchema = Yup.object({
 
 
 export default function Login() {
-
-    const navigate = useNavigate()
-    const { user } = useContext(AuthContext)
+    const { login } = useContext(AuthContext)
     
     const handleSubmit = async (values, { setSubmitting }) => {
         const success = await login(values.email, values.password);
