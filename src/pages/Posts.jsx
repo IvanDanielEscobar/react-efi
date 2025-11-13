@@ -11,16 +11,21 @@ import "../styles/PostCard.css";
 export default function Posts() {
   const { token, user } = useAuth()
   const [ posts, setPosts ] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   
   
   useEffect(() => {
     const loadPosts = async () => {
+      setLoading(true)
       try {
         const data = await fetchWithToken("/posts");
         setPosts(data);
       } catch (error) {
         toast.error(error.message);
-      }
+      } finally {
+      setLoading(false); 
+    }
     };
   
     if (token) {
@@ -44,16 +49,29 @@ export default function Posts() {
     <div className="posts-container">
       <CreatePost className="create-posts" onPostCreated={handlePostCreated} />
       <h2 className="title-header-posts"> Últimas publicaciones</h2>
-      <div className="posts-list">
-        {posts.map((post) => (
-          <PostCard 
-          key={post.id} 
-          post={post}
-          onPostUpdate={handlePostUpdated}
-          onPostDeleted={handlePostDeleted}
-          />
-        ))}
-      </div>
+      
+      {loading ? (
+        <div style={{ textAlign: "center", margin: "2rem" }}>
+          <i
+            className="pi pi-spin pi-spinner"
+            style={{ fontSize: "2rem", color: "var(--color-accent)" }}
+          ></i>
+          <p style={{ color: "var(--color-text-primary)", marginTop: "0.5rem" }}>
+            Cargando posts...
+          </p>
+        </div>
+        ) : (
+        <div className="posts-list">
+          {posts.map((post) => (
+            <PostCard 
+            key={post.id} 
+            post={post}
+            onPostUpdate={handlePostUpdated}
+            onPostDeleted={handlePostDeleted}
+            />
+          ))}
+        </div>
+        )}
     </div>
   );
 }

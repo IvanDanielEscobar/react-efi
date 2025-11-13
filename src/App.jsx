@@ -4,6 +4,9 @@ import RegisterForm from "./components/RegisterForm";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Posts from "./pages/Posts";
+import Footer from "./components/Footer";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import { Fragment } from 'react'
 import { useAuth } from "./context/AuthContext"
 import "primereact/resources/themes/lara-light-blue/theme.css";
@@ -15,7 +18,7 @@ import "./styles.css";
 export default function App() {
   const { user } = useAuth()
   return (
-    <div>
+    <div className="fondo">
       <Navbar />
       <Routes>
         {!user ? (
@@ -27,9 +30,12 @@ export default function App() {
         ) : (
         <Fragment>
           <Route path="/posts" element={<Posts />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Fragment>
         )}
-        </Routes>
+      </Routes>
+      <Footer />
     </div>
   );
 }

@@ -1,11 +1,12 @@
 .posts-container{
-  background-color: #ffffffcc;
+  background-color: var(--color-background);
   padding:1px 0 0 0;
+  padding-bottom: 150px;
 }
 
 .title-header-posts{
   display: flex;
-  color: #2e2e2e;
+  color: var(--color-text-primary);;
   justify-content: center;
   align-items: center;
   margin: 110px;
