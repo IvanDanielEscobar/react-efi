@@ -6,14 +6,17 @@ import Navbar from "./components/Navbar";
 import Posts from "./pages/Posts";
 import { Fragment } from 'react'
 import { useAuth } from "./context/AuthContext"
-import "./styles.css"
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./styles.css";
 
 export default function App() {
   const { user } = useAuth()
   return (
     <div>
       <Navbar />
-      {user && <div style={{ marginTop: 90, backgroundClip: 'transparent'}}></div>}
       <Routes>
         {!user ? (
         <Fragment>

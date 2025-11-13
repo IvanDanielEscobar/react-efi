@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import * as Yup from "yup"
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { toast } from "react-toastify"
+import "../styles/CreatePost.css"
 
 
 export default function CreatePost({ onPostCreated }) {

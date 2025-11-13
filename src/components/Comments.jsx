@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { createComment, getComments, fetchWithToken, updateComment, deleteComment } from "../api/api";
+import { createComment, getComments, updateComment, deleteComment } from "../api/api";
 import { toast } from "react-toastify";
 import { Button } from "primereact/button"
 import { Dialog } from "primereact/dialog"
 import { InputTextarea } from "primereact/inputtextarea"
+import "../styles/PostCard.css"
 
 export default function CommentSection({ postId }) {
   const { user, token } = useAuth();
@@ -79,22 +80,27 @@ export default function CommentSection({ postId }) {
 
   return (
     <div className="comments-section" style={{ color: 'black'}}>
-      <h4>Comentarios ({comments.length})</h4>
+      <h2>Comentarios ({comments.length})</h2>
 
       {comments.length === 0 && <p>No hay comentarios aún.</p>}
 
       {comments.map((comment) => (
         <div key={comment.id} className="comment">
+            <section className="top-comment">
             <p className="comment-author">
-              <strong>{comment.author}:</strong> {comment.content}
+              <strong>{comment.author} - </strong><small>{new Date(comment.created_at).toLocaleString("es-AR")}</small>
             </p>
-            <small>{new Date(comment.created_at).toLocaleString("es-AR")}</small>
+            <div className="buttons-posts">
             {user?.id === comment.user_id && (
-              <Button onClick={() => handleEditClick(comment)} >Editar</Button>
+              <Button onClick={() => handleEditClick(comment)}><i className="pi pi-pencil"></i></Button>
             )}
             {(user?.id === comment.user_id || user?.role === "admin") && (
-              <Button onClick={() => handleDeleteComment(comment.id)}>Eliminar</Button>
+              <Button onClick={() => handleDeleteComment(comment.id)} text><i className="pi pi-trash"></i></Button>
             )}
+            </div>
+            </section>
+            <p>{comment.content}</p>
+            
         </div>
       ))}
 
@@ -107,9 +113,9 @@ export default function CommentSection({ postId }) {
             rows="3"
             className="textarea-field"
           />
-          <Button type="submit" className="submit-btn">
-            Comentar
-          </Button>
+          <div className="comentar">
+            <Button type="submit" className="pi pi-comment" text/>
+          </div>
         </form>
       )}
       {/* Modal de edición */}

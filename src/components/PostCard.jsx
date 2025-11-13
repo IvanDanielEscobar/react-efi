@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import CommentSection from "./Comments";
 import { Button } from "primereact/button";
-import "../styles/PostCard.css";
 import { useAuth } from "../context/AuthContext";
 import { fetchWithToken } from "../api/api";
 import { toast } from "react-toastify";
 import { Dialog } from "primereact/dialog";
 import { InputTextarea } from "primereact/inputtextarea";
+import "../styles/PostCard.css";
 
 export default function PostCard({ post, onPostDeleted, onPostUpdate }) {
   const { user, token } = useAuth()
@@ -52,23 +52,26 @@ export default function PostCard({ post, onPostDeleted, onPostUpdate }) {
 
   return (
     <div className="post-card">
-      <h2 className="post-title">{post.title}</h2>
-      <p className="post-author">
-        Publicado por <strong>{post.author}</strong>
-      </p>
-      <p className="post-content">{post.content}</p>
-      <p 
-      className=""
-      style={{ color: 'black'}}
-      >
-        {new Date(post.created_at).toLocaleString("es-AR")}
-      </p>
-      {user?.id === post.user_id && (
-        <Button onClick={handleEditClick} >Editar</Button>
-      )}
-      {(user?.id === post.user_id || user?.role === "admin")&&(
-        <Button onClick={handleDelete}>Eliminar</Button>
-      )}
+      <section className="top-card">
+        <p className="post-author">
+          <strong>{post.author}</strong>
+        </p>
+        <p className="post-author">
+          {new Date(post.created_at).toLocaleString("es-AR")}
+        </p>
+      </section>
+      <section className="container-content">
+        <h2 className="post-title">{post.title}</h2>
+        <p className="post-content">{post.content}</p>
+      </section>
+      <section className="buttons-posts">
+        {user?.id === post.user_id && (
+          <Button onClick={handleEditClick} ><i className="pi pi-pencil"></i></Button>
+        )}
+        {(user?.id === post.user_id || user?.role === "admin")&&(
+          <Button severity="danger" onClick={handleDelete}><i className="pi pi-trash"></i></Button>
+        )}
+      </section>
       <CommentSection postId={post.id} />
 
       {/* modal */}

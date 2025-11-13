@@ -40,18 +40,16 @@ export const AuthProvider = ({ children }) => {
                 const response = await fetch('http://localhost:5000/register', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, password, role })
+                    body: JSON.stringify({ name, email, password, role})
                 })
-
                 if (response.ok) {
                     toast.success("Usuario registrado con exito")
-                    resetForm()
                     setTimeout(() => navigate('/loguearse'), 2000)
                 } else {
-                    toast.error("Hubo un erro al registrar el usuario")
+                    toast.error("Hubo un erro al registrar el usuario", data.Error)
                 }
             } catch (error) {
-                toast.error("hubo un error con el servidor", error)
+                toast.error("hubo un error con el servidor", data.Error)
             }
         }
 

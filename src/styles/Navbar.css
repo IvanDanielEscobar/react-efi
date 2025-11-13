@@ -3,11 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(6px);
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 35px 30px;
+  background: rgb(186, 186, 186);
   position: fixed;
   top: 0;
   left: 0;
@@ -15,20 +12,20 @@
 }
 
 .navbar-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a73e8;
+  font-size: 24px;
+  color: #408ef4;
+  cursor: pointer;
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 20px;
 }
 
 .navbar-links a {
   font-weight: 500;
-  color: #213547;
+  color: #fff;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -40,6 +37,12 @@
 .navbar-user {
   font-weight: 600;
   color: #1a73e8;
+}
+
+.navbar-user:hover {
+  font-weight: 600;
+  color: #0a3062;
+  cursor: pointer;
 }
 
 .logout-btn {

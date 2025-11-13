@@ -42,8 +42,8 @@ export default function Posts() {
 
   return (
     <div className="posts-container">
-      <CreatePost onPostCreated={handlePostCreated} />
-      <h2>Últimas publicaciones</h2>
+      <CreatePost className="create-posts" onPostCreated={handlePostCreated} />
+      <h2 className="title-header-posts"> Últimas publicaciones</h2>
       <div className="posts-list">
         {posts.map((post) => (
           <PostCard 
