@@ -1,0 +1,17 @@
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--color-navbar);
+  color: white;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
