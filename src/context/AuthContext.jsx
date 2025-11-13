@@ -1,5 +1,4 @@
 import React, { children, createContext, useEffect, useState, useContext } from 'react';
-
 import  { jwtDecode }  from 'jwt-decode'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
@@ -20,10 +19,14 @@ export const AuthProvider = ({ children }) => {
         if (storedToken) {
             try {
                 const decoded = jwtDecode(storedToken)
-                const userData = decoded.user || decoded
-                    setUser(userData)
-                    setToken(storedToken)
-
+                const now = Date.now() / 1000
+                if (decoded.exp && decoded.exp < now ){
+                    logout()
+                } else {
+                    const userData = decoded.user || decoded
+                        setUser(userData)
+                        setToken(storedToken)
+                }
             } catch (error) {
                 console.error("token invalido", error)
                 localStorage.removeItem("token")
@@ -85,6 +88,7 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    // cerrar sesion
     const logout = () => {
         localStorage.removeItem("token");
         setUser(null);
@@ -93,9 +97,36 @@ export const AuthProvider = ({ children }) => {
         toast.info("Sesión cerrada");
     };
 
+    // crear un post
+    const createPost = async (token, postData) => {
+      const response = await fetch("http://localhost:5000/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(postData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al crear el post");
+      }
+
+      return response.json();
+    };
+
     
     return(
-        <AuthContext.Provider value={{ user, token, login, register, logout}}>
+        <AuthContext.Provider 
+            value={{ 
+                user,
+                token,
+                login,
+                register,
+                logout,
+                createPost
+                }}
+        >
             {children}
         </AuthContext.Provider>
     )
