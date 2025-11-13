@@ -1,16 +1,42 @@
-# React + Vite
+# react-efi:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- **Integrantes:** 
+    ## Ivan Escobar - https://github.com/IvanDanielEscobar
+    ## Jonatan Villavicencio - https://github.com/jonivillavicencio
 
-Currently, two official plugins are available:
+## 🎯 Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Necesitarás tener instalado lo siguiente para correr este proyecto:
 
-## React Compiler
+- **Node.js:** Versión LTS recomendada (verifica la versión que usaste, generalmente 16.x o superior).
+- **npm** Administrador de paquetes de Node.js.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Instalación y Configuración
 
-## Expanding the ESLint configuration
+Sigue estos pasos para obtener una copia local y ejecutar la aplicación.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Clonar el Repositorio
+
+Abre tu terminal y ejecuta el siguiente comando:
+
+```bash
+git clone https://github.com/IvanDanielEscobar/react-efi.git
+cd react-efi
+```
+
+### 2. Instalar DependenciasUna vez dentro de la carpeta del proyecto, usa tu administrador de paquetes para instalar todas las dependencias necesarias:Usando npm:
+
+```Bash
+npm install
+```
+
+## 3. Para Correr la AplicaciónLa aplicación React se inicia en un servidor de desarrollo local.
+
+1. Iniicar el Servidor de Desarrollo Back-end desde el repositorio:
+   https://github.com/IvanDanielEscobar/MiniBlog.git
+
+2. Iniciar el Servidor de Desarrollo Front-end con el comando:
+
+```Bash
+npm run dev
+```
