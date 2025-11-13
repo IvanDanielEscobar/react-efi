@@ -1,10 +1,26 @@
+.posts-container{
+  background-color: var(--color-background);
+  padding:1px 0 0 0;
+  padding-bottom: 150px;
+}
+
+.title-header-posts{
+  display: flex;
+  color: var(--color-text-primary);;
+  justify-content: center;
+  align-items: center;
+  margin: 110px;
+}
+
+
+
 .post-card {
   background-color: #ffffffcc;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  padding: 30px 50px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  margin: 1.5rem auto;
-  max-width: 600px;
+  margin: 100px auto;
+  max-width: 700px;
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -13,44 +29,68 @@
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
-
-.post-title {
-  color: #213547;
-  font-size: 1.6rem;
-  margin-bottom: 0.4rem;
+.top-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
 }
 
 .post-author {
   color: #4a4a4a;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
+  font-size: 20px;
+}
+
+.container-content {
+  padding: 0 20px;
+}
+.post-title {
+  color: #213547;
+  font-size: 30px;
 }
 
 .post-content {
   color: #333;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  font-size: 20px;
+}
+
+.buttons-posts {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  gap: 10px;
 }
 
 .comments-section {
-  border-top: 1px solid #ddd;
-  margin-top: 1rem;
-  padding-top: 1rem;
+  border-top: 2px solid #213547;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+
+.comments-section h2{
+  display: flex;
+  justify-content: end;
+  font-size: 20px;
 }
 
 .comment {
   background-color: #f1f8e9;
   border-radius: 8px;
-  padding: 0.8rem 1rem;
+  padding: 30px 50px;
   margin-bottom: 0.6rem;
+  font-size: 17px;
 }
 
 .comment-author {
   font-weight: 600;
   color: #33691e;
 }
-
+.top-comment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .comment-content {
   margin: 0.2rem 0;
   color: #2e2e2e;
@@ -59,4 +99,11 @@
 .comment-date {
   font-size: 0.8rem;
   color: #777;
+}
+
+
+.comentar {
+  display: flex;
+  justify-content: end;  
+  padding: 20px 40px 0;
 }

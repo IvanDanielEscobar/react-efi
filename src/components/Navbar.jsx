@@ -13,6 +13,7 @@ export default function Navbar() {
     logout();
     navigate("/");
   };
+  const mostrarNombre = user.name || user.email || "Usuario"
 
   return (
     <nav className="navbar">
@@ -22,7 +23,7 @@ export default function Navbar() {
         <Link to="/posts">Inicio</Link>
         {user ? (
           <div>
-            <span className="navbar-user">Hola, {user.name}</span>
+            <span className="navbar-user" style={{marginRight: 20}}>Hola, {mostrarNombre}</span>
             <button className="logout-btn" onClick={handleLogout}>
               Cerrar sesión
             </button>

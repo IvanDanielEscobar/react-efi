@@ -4,11 +4,17 @@
   line-height: 1.5;
   font-weight: 400;
   color: #213547;
-  background: linear-gradient(135deg, #a0c4ff, #caffbf);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+    /* colores principales */
+  --color-navbar: #2A3F5F;
+  --color-background: #1E1E2F;
+  --color-card: #2C2F41;
+  --color-text-primary: #E0E0E0;
+  --color-text-secondary: #A0A0B0;
 }
 
 /* ---------- LINKS ---------- */
@@ -29,13 +35,14 @@ body,
   margin: 0;
   padding: 0;
   width: 100%;
+  background-color: var(--color-background);
 }
 
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #a0c4ff, #caffbf);
+  align-items: flex-start;
+  background: var(--color-background);
 }
 
 /* ---------- TITULOS ---------- */
@@ -82,4 +89,8 @@ button:focus-visible {
   h1 {
     color: #ffffff;
   }
+}
+
+.fondo {
+  background-color: var(--color-background);
 }
