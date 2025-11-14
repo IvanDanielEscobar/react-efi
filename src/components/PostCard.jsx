@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CommentSection from "./Comments";
 import { Button } from "primereact/button";
 import { useAuth } from "../context/AuthContext";
-import { fetchWithToken } from "../api/api";
+import { fetchWithToken, updatePost, deletePost } from "../api/api";
 import { toast } from "react-toastify";
 import { Dialog } from "primereact/dialog";
 import { InputTextarea } from "primereact/inputtextarea";
@@ -26,10 +26,7 @@ export default function PostCard({ post, onPostDeleted, onPostUpdate }) {
   //editar
   const handleEditSubmit = async () => {
     try {
-      const response = await fetchWithToken(`/posts/${post.id}`, {
-        method: "PUT",
-        body: JSON.stringify({ title: editTitle, content: editContent }),
-      });
+      await updatePost(post.id,{ title: editTitle, content: editContent });
       toast.success("Post actualizado");
       if (onPostUpdate) onPostUpdate(post.id, { title: editTitle, content: editContent });
       setEditModalVisible(false);
@@ -42,7 +39,7 @@ export default function PostCard({ post, onPostDeleted, onPostUpdate }) {
   const handleDelete = async () => {
     if (!window.confirm("¿Seguro que quieres eliminar este post?")) return;
     try {
-      await fetchWithToken(`/posts/${post.id}`, { method: "DELETE" });
+      await deletePost(post.id);
       toast.success("Post eliminado");
       if (onPostDeleted) onPostDeleted(post.id); // actualizar lista
     } catch (error) {

@@ -47,6 +47,21 @@ export async function createComment(postId, content) {
   });
 }
 
+// editar post
+export async function updatePost(postId, data) {
+  return fetchWithToken(`/posts/${postId}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+// eliminar post
+export async function deletePost(postId) {
+  return fetchWithToken(`/posts/${postId}`, {
+    method: "DELETE",
+  });
+}
+
 export async function updateComment(commentId, data) {
   return fetchWithToken(`/comments/${commentId}`, {
     method: "PUT",
